@@ -32,58 +32,58 @@ $(document).on("click", "#start-button", function(e) {
 ///////////////////////////////////////////////////////////////////////////////
 
 var questions = [{
-	question: "How old is Hans Moleman?",
-	answers: ["31","108","12","77"],
-	rightAnswer: "31",
-	picture:"assets/images/hans-moleman.gif"
+  question: "How old is Hans Moleman?",
+  answers: ["31","108","12","77"],
+  rightAnswer: "31",
+  picture:"../images/hans-moleman.gif"
 }, {
-	question: "What is the name of Bart's evil Twin?",
-	answers: ["Ernie","Hugo","Merlin","Bart"],
-	rightAnswer: "Hugo",
-	picture:"assets/images/hugo-gif.gif"
+  question: "What is the name of Bart's evil Twin?",
+  answers: ["Ernie","Hugo","Merlin","Bart"],
+  rightAnswer: "Hugo",
+  picture:"../images/hugo-gif.gif"
 }, {
-	question: "What is Lisa's best friend called?",
-	answers: ["Janey","Jenny","Julie","Janet"],
-	rightAnswer: "Janey",
-	picture:"assets/images/janey.gif"
+  question: "What is Lisa's best friend called?",
+  answers: ["Janey","Jenny","Julie","Janet"],
+  rightAnswer: "Janey",
+  picture:"../images/janey.gif"
 }, {
-	question: "In Treehouse of Horror, where is the porthole to another dimension?",
-	answers: ["In the closet","Behind the bookcase","Under the couch","In the fridge"],
-	rightAnswer: "Behind the bookcase",
-	picture:"assets/images/dimension.gif"
+  question: "In Treehouse of Horror, where is the porthole to another dimension?",
+  answers: ["In the closet","Behind the bookcase","Under the couch","In the fridge"],
+  rightAnswer: "Behind the bookcase",
+  picture:"../images/dimension.gif"
 }, {
-	question: "What was Mr. Burns' teddy bear called?",
-	answers: ["Bouncer","Beans","Bo bo","Bubble"],
-	rightAnswer: "Bo bo",
-	picture:"assets/images/bobo.gif"
+  question: "What was Mr. Burns' teddy bear called?",
+  answers: ["Bouncer","Beans","Bo bo","Bubble"],
+  rightAnswer: "Bo bo",
+  picture:"../images/bobo.gif"
 }, {
-	question: "What does the scanner say when Maggie is scanned in the opening titles?",
-	answers: ["NRA4EVER","$39.99","Eat my shorts","$847.63"],
-	rightAnswer: "$847.63",
-	picture:"assets/images/maggiescan.gif"
+  question: "What does the scanner say when Maggie is scanned in the opening titles?",
+  answers: ["NRA4EVER","$39.99","Eat my shorts","$847.63"],
+  rightAnswer: "$847.63",
+  picture:"../images/maggiescan.gif"
 
 }, {
-	question: "How does Maude die?",
-	answers: ["Electric shock","Falling from a stadium stand","Cancer","Drinking"],
-	rightAnswer: "Falling from a stadium stand",
-	picture:"assets/images/byemaude.gif"
+  question: "How does Maude die?",
+  answers: ["Electric shock","Falling from a stadium stand","Cancer","Drinking"],
+  rightAnswer: "Falling from a stadium stand",
+  picture:"../images/byemaude.gif"
 
 }, {
-	question: "Where was Maggie when she shot Mr Burns?",
-	answers: ["At Moes Tavern", "Next to the sundial","In the mall","In the car"],
-	rightAnswer: "In the car",
-	picture:"assets/images/maggieshoot.gif"
+  question: "Where was Maggie when she shot Mr Burns?",
+  answers: ["At Moes Tavern", "Next to the sundial","In the mall","In the car"],
+  rightAnswer: "In the car",
+  picture:"../images/maggieshoot.gif"
 
 }, {
-	question: "What is Apu's last name?",
-	answers: ["Nahasapeemapetilon","Nashapenapetalon","Nahasapenapetaloon","Nashapenapetaloon"],
-	rightAnswer: "Nahasapeemapetilon",
-	picture:"assets/images/apu.gif"
+  question: "What is Apu's last name?",
+  answers: ["Nahasapeemapetilon","Nashapenapetalon","Nahasapenapetaloon","Nashapenapetaloon"],
+  rightAnswer: "Nahasapeemapetilon",
+  picture:"../images/apu.gif"
 }, {
-	question: "What is Selma's pet iguana's name?",
-	answers: ["Boo Boo","Tom Tom","Jub Jub","Cutley"],
-	rightAnswer: "Jub Jub",
-	picture:"assets/images/selma-jubjub.gif"
+  question: "What is Selma's pet iguana's name?",
+  answers: ["Boo Boo","Tom Tom","Jub Jub","Cutley"],
+  rightAnswer: "Jub Jub",
+  picture:"../images/selma-jubjub.gif"
 
 }];
 
@@ -104,6 +104,7 @@ var game = {
   },
   loadQuestion: function(){
     timer = setInterval(game.countdown, 1000);
+    console.log("this is this load question ", this);
     panel.html('<h2>' + questions[this.currentQuestion].question + '</h2>' );
     for (var i = 0; i<questions[this.currentQuestion].answers.length; i++){
       panel.append('<button class="answer-button" id="button"' + 'data-name="' + questions[this.currentQuestion].answers[i] + '">' + questions[this.currentQuestion].answers[i]+ '</button>');
@@ -121,7 +122,7 @@ var game = {
 
     panel.html('<h2>Out of Time!</h2>');
     panel.append('<h3>The Correct Answer was: ' + questions[this.currentQuestion].rightAnswer);
-    panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
+    //panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
 
     if (game.currentQuestion === questions.length - 1){
       setTimeout(game.results, 3 * 1000);
@@ -141,8 +142,7 @@ var game = {
   },
   clicked: function(e) {
     clearInterval(timer);
-
-    if ($(e.target).data("data-name") === questions[this.currentQuestion].correctAnswer){
+    if ($(e.target).context.dataset.name == questions[this.currentQuestion].rightAnswer){
       this.answeredCorrectly();
     } else {
       this.answeredIncorrectly();
