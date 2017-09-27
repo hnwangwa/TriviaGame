@@ -1,0 +1,14 @@
+body {
+	font-family: "Rock Salt", cursive;
+	background-image: url("../images/simpsonstv.png");
+}
+
+#container {
+	margin-top: 200px;
+	margin-right: 135px;
+	text-align: center;
+}
+
+#button-container {
+	margin-top: 20px;
+}
