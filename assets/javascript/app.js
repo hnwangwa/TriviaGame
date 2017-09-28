@@ -4,18 +4,14 @@ var panel = $("#quiz-container");
 var countStartNumber = 30;
 
 
-///////////////////////////////////////////////////////////////////////////////
-
-//CLICK EVENTS
-
-///////////////////////////////////////////////////////////////////////////////
+//Here are where all the click events go
 
 $(document).on("click", "#start-over", function(e) {
   game.reset();
 });
 
 $(document).on("click", ".answer-button", function(e) {
-  game.clicked(e);
+  game.clicked($(this).attr("data-name"));
 });
 
 $(document).on("click", "#start-button", function(e) {
@@ -23,13 +19,7 @@ $(document).on("click", "#start-button", function(e) {
   game.loadQuestion();
 });
 
-///////////////////////////////////////////////////////////////////////////////
-
-
-//Question set
-
-
-///////////////////////////////////////////////////////////////////////////////
+//Here are all the questions
 
 var questions = [{
   question: "How old is Hans Moleman?",
@@ -87,21 +77,24 @@ var questions = [{
 
 }];
 
+//This variable will be referred to throughout; it is the basic structure of the game
 var game = {
   questions:questions,
   currentQuestion:0,
   counter:countStartNumber,
   correct:0,
   incorrect:0,
+//This function is for the 30 second countdown per question
   countdown: function(){
     game.counter--;
     $('#counter-number').html(game.counter);
-
+//This is if the timer runs out
     if (game.counter === 0){
-      console.log('TIME UP');
+      console.log('Out of time');
       game.timeUp();
     }
   },
+//This displays the current trivia question the user is on
   loadQuestion: function(){
     timer = setInterval(game.countdown, 1000);
     console.log("this is this load question ", this);
@@ -110,19 +103,21 @@ var game = {
       panel.append('<button class="answer-button" id="button"' + 'data-name="' + questions[this.currentQuestion].answers[i] + '">' + questions[this.currentQuestion].answers[i]+ '</button>');
     }
   },
+//This progresses the user through the game
   nextQuestion: function(){
     game.counter = countStartNumber;
     $('#counter-number').html(game.counter);
     game.currentQuestion++;
     game.loadQuestion();
   },
+//This is the function I call when the timer is at 0
   timeUp: function (){
     clearInterval(timer);
     $('#counter-number').html(game.counter);
 
     panel.html('<h2>Out of Time!</h2>');
     panel.append('<h3>The Correct Answer was: ' + questions[this.currentQuestion].rightAnswer);
-    //panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
+    panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
 
     if (game.currentQuestion === questions.length - 1){
       setTimeout(game.results, 3 * 1000);
@@ -130,6 +125,7 @@ var game = {
       setTimeout(game.nextQuestion, 3 * 1000);
     }
   },
+  //This function is for the end of the game
   results: function() {
     clearInterval(timer);
 
@@ -140,14 +136,16 @@ var game = {
     panel.append('<h3>Unanswered: ' + (questions.length - (game.incorrect + game.correct)) + '</h3>');
     panel.append('<br><button id="start-over">Start Over?</button>');
   },
+  //This function (with more functions inside it) is for tracking if a user answers a question right
   clicked: function(e) {
     clearInterval(timer);
-    if ($(e.target).context.dataset.name == questions[this.currentQuestion].rightAnswer){
+    if (e == questions[this.currentQuestion].rightAnswer){
       this.answeredCorrectly();
     } else {
       this.answeredIncorrectly();
     }
   },
+  //This function is for when a user gets the question wrong
   answeredIncorrectly: function() {
     game.incorrect++;
     clearInterval(timer);
@@ -161,6 +159,7 @@ var game = {
       setTimeout(game.nextQuestion, 3 * 1000);
     }
   },
+  //This function is for when a user gets a question right
   answeredCorrectly: function(){
     clearInterval(timer);
     game.correct++;
@@ -173,6 +172,7 @@ var game = {
       setTimeout(game.nextQuestion, 3 * 1000);
     }
   },
+  //And lastly, this should reset the game!
   reset: function(){
     this.currentQuestion = 0;
     this.counter = countStartNumber;
