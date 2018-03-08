@@ -25,55 +25,55 @@ var questions = [{
   question: "How old is Hans Moleman?",
   answers: ["31","108","12","77"],
   rightAnswer: "31",
-  picture:"../images/hans-moleman.gif"
+  picture:"./assets/images/hans-moleman.gif"
 }, {
   question: "What is the name of Bart's evil Twin?",
   answers: ["Ernie","Hugo","Merlin","Bart"],
   rightAnswer: "Hugo",
-  picture:"../images/hugo-gif.gif"
+  picture:"./assets/images/hugo-gif.gif"
 }, {
   question: "What is Lisa's best friend called?",
   answers: ["Janey","Jenny","Julie","Janet"],
   rightAnswer: "Janey",
-  picture:"../images/janey.gif"
+  picture:"./assets/images/janey.gif"
 }, {
   question: "In Treehouse of Horror, where is the porthole to another dimension?",
   answers: ["In the closet","Behind the bookcase","Under the couch","In the fridge"],
   rightAnswer: "Behind the bookcase",
-  picture:"../images/dimension.gif"
+  picture:"./assets/images/dimension.gif"
 }, {
   question: "What was Mr. Burns' teddy bear called?",
   answers: ["Bouncer","Beans","Bo bo","Bubble"],
   rightAnswer: "Bo bo",
-  picture:"../images/bobo.gif"
+  picture:"./assets/images/bobo.gif"
 }, {
   question: "What does the scanner say when Maggie is scanned in the opening titles?",
   answers: ["NRA4EVER","$39.99","Eat my shorts","$847.63"],
   rightAnswer: "$847.63",
-  picture:"../images/maggiescan.gif"
+  picture:"./assets/images/maggiescan.gif"
 
 }, {
   question: "How does Maude die?",
   answers: ["Electric shock","Falling from a stadium stand","Cancer","Drinking"],
   rightAnswer: "Falling from a stadium stand",
-  picture:"../images/byemaude.gif"
+  picture:"./assets/images/byemaude.gif"
 
 }, {
   question: "Where was Maggie when she shot Mr Burns?",
   answers: ["At Moes Tavern", "Next to the sundial","In the mall","In the car"],
   rightAnswer: "In the car",
-  picture:"../images/maggieshoot.gif"
+  picture:"./assets/images/maggieshoot.gif"
 
 }, {
   question: "What is Apu's last name?",
   answers: ["Nahasapeemapetilon","Nashapenapetalon","Nahasapenapetaloon","Nashapenapetaloon"],
   rightAnswer: "Nahasapeemapetilon",
-  picture:"../images/apu.gif"
+  picture:"./assets/images/apu.gif"
 }, {
   question: "What is Selma's pet iguana's name?",
   answers: ["Boo Boo","Tom Tom","Jub Jub","Cutley"],
   rightAnswer: "Jub Jub",
-  picture:"../images/selma-jubjub.gif"
+  picture:"./assets/images/selma-jubjub.gif"
 
 }];
 
@@ -117,7 +117,7 @@ var game = {
 
     panel.html('<h2>Out of Time!</h2>');
     panel.append('<h3>The Correct Answer was: ' + questions[this.currentQuestion].rightAnswer);
-    panel.append('<img src="' + questions[this.currentQuestion].image + '" />');
+    panel.append('<img src="' + questions[this.currentQuestion].picture + '" />');
 
     if (game.currentQuestion === questions.length - 1){
       setTimeout(game.results, 3 * 1000);
@@ -151,7 +151,7 @@ var game = {
     clearInterval(timer);
     panel.html('<h2>Nope!</h2>');
     panel.append('<h3>The Correct Answer was: ' + questions[game.currentQuestion].rightAnswer + '</h3>');
-    panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
+    panel.append('<img src="' + questions[this.currentQuestion].picture + '" />');
 
     if (game.currentQuestion === questions.length - 1){
       setTimeout(game.results, 3 * 1000);
@@ -164,7 +164,7 @@ var game = {
     clearInterval(timer);
     game.correct++;
     panel.html('<h2>Correct!</h2>');
-    panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
+    panel.append('<img src="' + questions[this.currentQuestion].picture + '" />');
 
     if (game.currentQuestion === questions.length - 1){
       setTimeout(game.results, 3 * 1000);
